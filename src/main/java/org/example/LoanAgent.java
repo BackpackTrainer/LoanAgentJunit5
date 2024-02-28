@@ -6,14 +6,12 @@ public class LoanAgent {
 
     IErrorLog errorLog;
 
-
-
     public boolean processLoanApplication(ILoanApplication application) throws InvalidCreditScoreException {
         boolean response = false;
         String ssn = application.getSSN();
         int creditScore = agency.getCreditScore(ssn);
         if(creditScore < 200 || creditScore > 850) {
-            //errorLog.log(creditScore + " is not a valid credit score");
+            errorLog.log(creditScore + " is not a valid credit score");
             throw new InvalidCreditScoreException(creditScore + " is not a valid credit score");
         }
         if(creditScore >= minimumCreditScore) {
